@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BioVida | Biología Humana</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🧬 BioVida
+        </div>
+
+        <div class="menu">
+            <a href="/">Inicio</a>
+            <a href="/respiratorio">Respiratorio</a>
+            <a href="/circulatorio">Circulatorio</a>
+            <a href="/digestivo">Digestivo</a>
+            <a href="/quiz">Quiz</a>
+            <a href="{{ url_for('juego') }}">Juego</a>
+        </div>
+
+    </nav>
+
+
+    <!-- PORTADA -->
+
+    <header class="hero">
+
+        <div class="hero-text">
+
+            <p class="mini-title">
+                🔬 CIENCIA • SALUD • BIOLOGÍA
+            </p>
+
+            <h1>
+                Descubre cómo<br>
+                funciona tu <span>cuerpo</span>
+            </h1>
+
+            <p>
+                Aprende de manera sencilla cómo funcionan
+                algunos de los sistemas más importantes
+                del cuerpo humano.
+            </p>
+
+            <div class="buttons">
+
+                <a href="#sistemas" class="btn">
+                    Explorar sistemas
+                </a>
+
+                <a href="/quiz" class="btn secondary">
+                    🧠 Hacer el quiz
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-image">
+            🫁
+            <div class="floating heart">❤️</div>
+            <div class="floating stomach">🫃</div>
+        </div>
+
+    </header>
+    <!-- AUTOR -->
+<section class="autor">
+    <h2>👨‍🔬 Autor</h2>
+    <p>Fernandez Villogas Joan Jheferson</p>
+</section>
+
+
+    <!-- SISTEMAS -->
+
+    <main id="sistemas">
+
+        <section class="intro">
+
+            <p class="mini-title">
+                APRENDE BIOLOGÍA
+            </p>
+
+            <h2>
+                Explora los sistemas
+            </h2>
+
+            <p>
+                Conoce sus órganos, funciones y procesos
+                principales.
+            </p>
+
+        </section>
+
+
+        <section class="cards">
+
+
+            <!-- RESPIRATORIO -->
+
+            <article class="card respiratory">
+
+                <div class="icon">
+                    🫁
+                </div>
+
+                <h3>
+                    Sistema Respiratorio
+                </h3>
+
+                <p>
+                    Aprende cómo entra el oxígeno al cuerpo
+                    y cómo eliminamos el dióxido de carbono.
+                </p>
+
+                <a href="/respiratorio">
+                    Ver sistema →
+                </a>
+
+            </article>
+
+
+            <!-- CIRCULATORIO -->
+
+            <article class="card circulatory">
+
+                <div class="icon">
+                    ❤️
+                </div>
+
+                <h3>
+                    Sistema Circulatorio
+                </h3>
+
+                <p>
+                    Descubre cómo el corazón y los vasos
+                    sanguíneos transportan la sangre.
+                </p>
+
+                <a href="/circulatorio">
+                    Ver sistema →
+                </a>
+
+            </article>
+
+
+            <!-- DIGESTIVO -->
+
+            <article class="card digestive">
+
+                <div class="icon">
+                    🍽️
+                </div>
+
+                <h3>
+                    Sistema Digestivo
+                </h3>
+
+                <p>
+                    Conoce el recorrido de los alimentos
+                    y cómo obtenemos nutrientes.
+                </p>
+
+                <a href="/digestivo">
+                    Ver sistema →
+                </a>
+
+            </article>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h3>🧬 BioVida</h3>
+
+        <p>
+            Aprende • Explora • Descubre
+        </p>
+
+        <small>
+            Proyecto educativo de Biología
+        </small>
+
+    </footer>
+
+</body>
+
+</html>

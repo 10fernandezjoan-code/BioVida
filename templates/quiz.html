@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Quiz de Biología | BioVida</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            🧬 BioVida
+        </div>
+
+        <div class="nav-links">
+            <a href="{{ url_for('inicio') }}">Inicio</a>
+            <a href="{{ url_for('respiratorio') }}">Respiratorio</a>
+            <a href="{{ url_for('circulatorio') }}">Circulatorio</a>
+            <a href="{{ url_for('digestivo') }}">Digestivo</a>
+            <a href="{{ url_for('quiz') }}">Quiz</a>
+        </div>
+
+    </nav>
+
+
+    <!-- ENCABEZADO -->
+    <header class="quiz-header">
+
+        <p class="mini-title">
+            🧠 PON A PRUEBA TUS CONOCIMIENTOS
+        </p>
+
+        <h1>
+            Quiz de Biología
+        </h1>
+
+        <p>
+            ¿Cuánto sabes sobre los sistemas del cuerpo humano?
+        </p>
+
+    </header>
+
+
+    <!-- PREGUNTAS -->
+    <main>
+
+        <form id="quizForm">
+
+            {% for pregunta in preguntas %}
+
+            {% set numero_pregunta = loop.index %}
+
+            <section class="question-card">
+
+                <span class="question-number">
+                    Pregunta {{ numero_pregunta }}
+                </span>
+
+                <h2>
+                    {{ pregunta.pregunta }}
+                </h2>
+
+                <div class="options">
+
+                    {% for opcion in pregunta.opciones %}
+
+                    <label class="option">
+
+                        <input
+                            type="radio"
+                            name="pregunta{{ numero_pregunta }}"
+                            value="{{ loop.index0 }}"
+                        >
+
+                        <span>
+                            {{ opcion }}
+                        </span>
+
+                    </label>
+
+                    {% endfor %}
+
+                </div>
+
+            </section>
+
+            {% endfor %}
+
+
+            <!-- BOTÓN -->
+            <button
+                type="button"
+                class="quiz-button"
+                onclick="calcularResultado()"
+            >
+                🧠 Ver resultado
+            </button>
+
+        </form>
+
+
+        <!-- RESULTADO -->
+        <div
+            id="resultado"
+            class="result-box"
+        ></div>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <p>
+            🧬 BioVida | Aprende sobre tu cuerpo
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        const respuestasCorrectas = [
+
+            {% for pregunta in preguntas %}
+                {{ pregunta.respuesta }},
+            {% endfor %}
+
+        ];
+
+
+        function calcularResultado() {
+
+            let puntos = 0;
+            let respondidas = 0;
+
+
+            // Revisar cada pregunta
+            respuestasCorrectas.forEach(
+                (respuesta, index) => {
+
+                    const seleccionada =
+                        document.querySelector(
+                            `input[name="pregunta${index + 1}"]:checked`
+                        );
+
+
+                    // Si respondió la pregunta
+                    if (seleccionada) {
+
+                        respondidas++;
+
+
+                        // Comprobar respuesta
+                        if (
+                            parseInt(seleccionada.value)
+                            === respuesta
+                        ) {
+
+                            puntos++;
+
+                        }
+
+                    }
+
+                }
+            );
+
+
+            const resultado =
+                document.getElementById("resultado");
+
+
+            // Si faltan preguntas
+            if (
+                respondidas <
+                respuestasCorrectas.length
+            ) {
+
+                resultado.innerHTML = `
+
+                    <h2>
+                        ⚠️ Faltan respuestas
+                    </h2>
+
+                    <p>
+                        Responde todas las preguntas.
+                    </p>
+
+                    <p>
+                        Te faltan
+                        <strong>
+                            ${respuestasCorrectas.length - respondidas}
+                        </strong>
+                        pregunta(s).
+                    </p>
+
+                `;
+
+                resultado.style.display = "block";
+
+                resultado.scrollIntoView({
+                    behavior: "smooth"
+                });
+
+                return;
+            }
+
+
+            // Mensaje según puntuación
+            let mensaje;
+
+
+            if (puntos === respuestasCorrectas.length) {
+
+                mensaje =
+                    "🏆 ¡Puntuación perfecta!";
+
+            }
+            else if (puntos >= 7) {
+
+                mensaje =
+                    "🔥 ¡Muy buen trabajo!";
+
+            }
+            else if (puntos >= 5) {
+
+                mensaje =
+                    "👍 Buen intento.";
+
+            }
+            else {
+
+                mensaje =
+                    "📚 Hay que repasar un poquito.";
+
+            }
+
+
+            // Mostrar resultado
+            resultado.innerHTML = `
+
+                <h2>
+                    ${mensaje}
+                </h2>
+
+                <p>
+                    Obtuviste
+                    <strong>
+                        ${puntos}/${respuestasCorrectas.length}
+                    </strong>
+                </p>
+
+                <button
+                    type="button"
+                    onclick="location.reload()"
+                    class="retry-button"
+                >
+                    🔄 Intentar nuevamente
+                </button>
+
+            `;
+
+
+            resultado.style.display = "block";
+
+
+            // Bajar automáticamente al resultado
+            resultado.scrollIntoView({
+                behavior: "smooth"
+            });
+
+        }
+
+    </script>
+
+</body>
+
+</html>

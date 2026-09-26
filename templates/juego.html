@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BioVida - juego</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+    <style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f8fb;
+    color: #222;
+}
+
+/* =========================
+   ENCABEZADO
+========================= */
+
+header {
+    background: white;
+    padding: 18px 7%;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+header h2 {
+    margin: 0;
+    color: #16834b;
+}
+
+/* =========================
+   CONTENEDOR
+========================= */
+
+.game-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 25px 70px;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.game-title {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.game-title h1 {
+    color: #126d40;
+    font-size: 38px;
+    margin-bottom: 10px;
+}
+
+.game-title p {
+    color: #666;
+    font-size: 17px;
+}
+
+/* =========================
+   BOTONES DE SISTEMAS
+========================= */
+
+.system-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.system-buttons button {
+    border: none;
+    padding: 13px 22px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.system-buttons button:hover {
+    transform: translateY(-2px);
+}
+
+.respiratorio-btn {
+    background: #dff5e8;
+    color: #16834b;
+}
+
+.circulatorio-btn {
+    background: #ffe2e2;
+    color: #b52e2e;
+}
+
+.digestivo-btn {
+    background: #ffedd6;
+    color: #c66a12;
+}
+
+/* =========================
+   TABLERO
+========================= */
+
+.game-board {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* =========================
+   CUERPO HUMANO
+========================= */
+
+.body {
+    width: 300px;
+    height: 570px;
+    position: relative;
+    margin: 0 auto;
+}
+
+/* CABEZA */
+
+.head {
+    position: absolute;
+    width: 105px;
+    height: 120px;
+    background: #f2c6a8;
+    border-radius: 50%;
+    top: 0;
+    left: 97px;
+    z-index: 3;
+}
+
+/* CUELLO */
+
+.neck {
+    position: absolute;
+    width: 58px;
+    height: 65px;
+    background: #f2c6a8;
+    top: 100px;
+    left: 121px;
+    z-index: 2;
+}
+
+/* TORSO */
+
+.torso {
+    position: absolute;
+    width: 165px;
+    height: 245px;
+    background: #78b995;
+    top: 125px;
+    left: 67px;
+    border-radius: 70px 70px 35px 35px;
+    z-index: 2;
+}
+
+/* HOMBROS */
+
+.torso::before,
+.torso::after {
+    content: "";
+    position: absolute;
+    width: 55px;
+    height: 55px;
+    background: #78b995;
+    border-radius: 50%;
+    top: 5px;
+}
+
+.torso::before {
+    left: -25px;
+}
+
+.torso::after {
+    right: -25px;
+}
+
+/* BRAZOS */
+
+.arm {
+    position: absolute;
+    width: 48px;
+    height: 230px;
+    background: #f2c6a8;
+    border-radius: 25px;
+    top: 140px;
+    z-index: 1;
+}
+
+.arm.left {
+    left: 27px;
+    transform: rotate(7deg);
+}
+
+.arm.right {
+    right: 27px;
+    transform: rotate(-7deg);
+}
+
+/* MANOS */
+
+.arm::after {
+    content: "";
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: #f2c6a8;
+    border-radius: 50%;
+    bottom: -20px;
+    left: 0;
+}
+
+/* PIERNAS */
+
+.leg {
+    position: absolute;
+    width: 65px;
+    height: 205px;
+    background: #f2c6a8;
+    border-radius: 30px;
+    top: 355px;
+    z-index: 1;
+}
+
+.leg.left {
+    left: 82px;
+}
+
+.leg.right {
+    right: 82px;
+}
+
+/* PIES */
+
+.leg::after {
+    content: "";
+    position: absolute;
+    width: 75px;
+    height: 35px;
+    background: #f2c6a8;
+    border-radius: 25px;
+    bottom: -15px;
+    left: -5px;
+}
+
+/* =========================
+   ÓRGANOS VISUALES
+========================= */
+
+#organosVisuales {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.pulmon {
+    position: absolute;
+    font-size: 55px;
+}
+
+.pulmon-izq {
+    top: 145px;
+    left: 72px;
+}
+
+.pulmon-der {
+    top: 145px;
+    left: 145px;
+}
+
+.corazon {
+    position: absolute;
+    top: 165px;
+    left: 112px;
+    font-size: 50px;
+}
+
+.estomago {
+    position: absolute;
+    top: 220px;
+    left: 105px;
+    font-size: 45px;
+}
+
+.intestinos {
+    position: absolute;
+    top: 255px;
+    left: 88px;
+    font-size: 35px;
+}
+
+/* =========================
+   ZONAS
+========================= */
+
+.drop-zone {
+    position: absolute;
+    z-index: 10;
+    border: 2px dashed rgba(22, 131, 75, 0.55);
+    background: rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.drop-zone:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+/* POSICIONES */
+
+/* =========================
+   ZONAS DEL CUERPO
+========================= */
+
+/* CABEZA */
+
+.zone-cabeza {
+    width: 75px;
+    height: 45px;
+    top: 35px;
+    left: 112px;
+}
+
+/* CUELLO */
+
+.zone-cuello {
+    width: 55px;
+    height: 45px;
+    top: 105px;
+    left: 123px;
+}
+
+/* PECHO */
+
+.zone-pecho-izq {
+    width: 65px;
+    height: 60px;
+    top: 155px;
+    left: 75px;
+}
+
+.zone-pecho-der {
+    width: 65px;
+    height: 60px;
+    top: 155px;
+    left: 155px;
+}
+
+/* CORAZÓN */
+
+.zone-corazon {
+    width: 55px;
+    height: 55px;
+    top: 175px;
+    left: 120px;
+}
+
+/* ABDOMEN SUPERIOR */
+
+.zone-abdomen {
+    width: 70px;
+    height: 50px;
+    top: 220px;
+    left: 80px;
+}
+
+/* ABDOMEN DERECHO */
+
+.zone-abdomen-der {
+    width: 70px;
+    height: 50px;
+    top: 220px;
+    left: 150px;
+}
+
+/* ABDOMEN INFERIOR */
+
+.zone-abdomen-inferior {
+    width: 70px;
+    height: 50px;
+    top: 275px;
+    left: 115px;
+}
+
+/* INTESTINOS */
+
+.zone-intestino {
+    width: 100px;
+    height: 65px;
+    top: 270px;
+    left: 100px;
+}
+
+/* PELVIS */
+
+.zone-pelvis {
+    width: 80px;
+    height: 45px;
+    top: 325px;
+    left: 110px;
+}
+/* =========================
+   RECUADROS DE LOS ÓRGANOS
+========================= */
+
+#zonas {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+}
+
+.drop-zone {
+    position: absolute;
+
+    width: 55px;
+    height: 45px;
+
+    border: 3px dashed #16834b;
+    background: rgba(255, 255, 255, 0.75);
+
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    z-index: 20;
+
+    transition: 0.2s;
+}
+
+.drop-zone:hover {
+    background: #e8f7ef;
+    transform: scale(1.05);
+}
+
+.drop-zone.drag-over {
+    background: #c9f2d8;
+    border-color: #106a3c;
+}
+
+/* NÚMERO */
+
+.zone-number {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: white;
+
+    color: #16834b;
+
+    border: 2px solid #16834b;
+
+    border-radius: 50%;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    pointer-events: none;
+}
+
+/* =========================
+   PALABRAS
+========================= */
+
+.words {
+    background: white;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.words h3 {
+    color: #16834b;
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#palabras {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.word {
+    background: #f7fbf9;
+    border: 2px solid #d7eee1;
+    padding: 13px 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: bold;
+    cursor: grab;
+    transition: 0.2s;
+}
+
+.word:hover {
+    background: #e8f7ef;
+    transform: translateY(-2px);
+}
+
+.word.selected {
+    background: #d4f2df;
+    border-color: #16834b;
+}
+
+/* =========================
+   PUNTUACIÓN
+========================= */
+
+.score {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #126d40;
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.message {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 15px;
+    text-align: center;
+    background: white;
+    border-radius: 12px;
+    color: #555;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* =========================
+   REINICIAR
+========================= */
+
+.reset {
+    display: block;
+    margin: 20px auto;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: #16834b;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.reset:hover {
+    background: #106a3c;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 850px) {
+
+    .game-board {
+        grid-template-columns: 1fr;
+    }
+
+    .words {
+        max-width: 500px;
+        margin: auto;
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 500px) {
+
+    .game-container {
+        padding: 30px 15px 50px;
+    }
+
+    .game-title h1 {
+        font-size: 30px;
+    }
+
+    .game-board {
+        gap: 25px;
+    }
+
+    #palabras {
+        grid-template-columns: 1fr;
+    }
+
+    .body {
+        transform: scale(0.85);
+        transform-origin: top center;
+        margin-bottom: -70px;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h2>🧬 BioVida</h2>
+</header>
+
+<div class="game-container">
+
+    <div class="game-title">
+        <h1>🧠 Juego: Ubica los órganos</h1>
+        <p>Selecciona un sistema y coloca cada órgano en su lugar.</p>
+    </div>
+
+    <div class="system-buttons">
+
+       <button class="respiratorio-btn"
+        onclick="cambiarSistema('respiratorio')">
+    🫁 Respiratorio
+</button>
+
+<button class="circulatorio-btn"
+        onclick="cambiarSistema('circulatorio')">
+    ❤️ Circulatorio
+</button>
+
+<button class="digestivo-btn"
+        onclick="cambiarSistema('digestivo')">
+    🍽️ Digestivo
+</button>
+
+    </div>
+
+    <div class="body">
+
+    <div class="head"></div>
+    <div class="neck"></div>
+    <div class="torso"></div>
+
+    <div class="arm left"></div>
+    <div class="arm right"></div>
+
+    <div class="leg left"></div>
+    <div class="leg right"></div>
+
+    <div id="organosVisuales"></div>
+    <div id="zonas"></div>
+
+</div>
+
+<div class="words">
+
+    <h3 id="tituloSistema">
+        🫁 Sistema respiratorio
+    </h3>
+
+    <div id="palabras"></div>
+
+    <div id="pistas"></div>
+
+</div>
+
+    </div>
+
+    <div class="score">
+        Correctos: <span id="score">0</span>
+    </div>
+
+    <div class="message" id="message">
+        Selecciona un sistema para comenzar.
+    </div>
+
+            <button class="reset" onclick="reiniciarJuego()">
+        🔄 Reiniciar
+    </button>
+
+    <script src="{{ url_for('static', filename='juego.js') }}"></script>
+</body>
+</html>
+
