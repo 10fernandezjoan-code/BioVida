@@ -3,40 +3,60 @@ from flask import Flask, render_template, send_from_directory
 app = Flask(__name__)
 
 
+# =========================
 # INICIO
+# =========================
+
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
 
+# =========================
 # SISTEMA RESPIRATORIO
+# =========================
+
 @app.route("/respiratorio")
 def respiratorio():
     return render_template("respiratorio.html")
 
 
+# =========================
 # SISTEMA CIRCULATORIO
+# =========================
+
 @app.route("/circulatorio")
 def circulatorio():
     return render_template("circulatorio.html")
 
 
+# =========================
 # SISTEMA DIGESTIVO
+# =========================
+
 @app.route("/digestivo")
 def digestivo():
-    @app.route("/urinario")
-    def urinario():
-        return render_template("urinario.html")
     return render_template("digestivo.html")
+
+
+# =========================
+# SISTEMA URINARIO
+# =========================
+
 @app.route("/urinario")
 def urinario():
     return render_template("urinario.html")
 
 
+# =========================
 # QUIZ
+# =========================
+
 @app.route("/quiz")
 def quiz():
+
     preguntas = [
+
         {
             "pregunta": "¿Cuál es la función principal del sistema respiratorio?",
             "opciones": [
@@ -47,6 +67,7 @@ def quiz():
             ],
             "respuesta": 1
         },
+
         {
             "pregunta": "¿Qué órgano bombea la sangre?",
             "opciones": [
@@ -57,6 +78,7 @@ def quiz():
             ],
             "respuesta": 2
         },
+
         {
             "pregunta": "¿Dónde ocurre principalmente la absorción de nutrientes?",
             "opciones": [
@@ -67,6 +89,7 @@ def quiz():
             ],
             "respuesta": 1
         },
+
         {
             "pregunta": "¿Dónde ocurre el intercambio gaseoso?",
             "opciones": [
@@ -77,6 +100,7 @@ def quiz():
             ],
             "respuesta": 2
         },
+
         {
             "pregunta": "¿Qué vasos llevan sangre desde el corazón?",
             "opciones": [
@@ -87,6 +111,7 @@ def quiz():
             ],
             "respuesta": 1
         },
+
         {
             "pregunta": "¿Cuál es la función principal del estómago?",
             "opciones": [
@@ -97,6 +122,7 @@ def quiz():
             ],
             "respuesta": 2
         },
+
         {
             "pregunta": "¿Qué gas necesita principalmente el cuerpo para la respiración celular?",
             "opciones": [
@@ -107,6 +133,7 @@ def quiz():
             ],
             "respuesta": 0
         },
+
         {
             "pregunta": "¿Qué componente de la sangre transporta principalmente oxígeno?",
             "opciones": [
@@ -117,6 +144,7 @@ def quiz():
             ],
             "respuesta": 1
         },
+
         {
             "pregunta": "¿Qué órgano produce la bilis?",
             "opciones": [
@@ -127,6 +155,7 @@ def quiz():
             ],
             "respuesta": 0
         },
+
         {
             "pregunta": "¿Cuál es el recorrido correcto del aire?",
             "opciones": [
@@ -137,6 +166,7 @@ def quiz():
             ],
             "respuesta": 1
         }
+
     ]
 
     return render_template(
@@ -145,14 +175,34 @@ def quiz():
     )
 
 
+# =========================
+# JUEGO
+# =========================
+
 @app.route("/juego")
 def juego():
     return render_template("juego.html")
 
 
+# =========================
+# JAVASCRIPT DEL JUEGO
+# =========================
+
 @app.route("/juego.js")
 def archivo_juego():
-    return send_from_directory("static", "juego.js")
+    return send_from_directory(
+        "static",
+        "juego.js"
+    )
+
+
+# =========================
+# EJECUTAR
+# =========================
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=True
+    )
