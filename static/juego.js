@@ -53,6 +53,19 @@ const sistemas = {
             ["recto", "🔴 Recto", "zone-recto", "Almacena temporalmente las heces."],
             ["ano", "🔴 Ano", "zone-ano", "Abertura por donde se eliminan las heces."]
         ]
+    },
+
+    urinario: {
+        titulo: "🫘 Sistema urinario",
+
+        organos: [
+            ["riñon_izquierdo", "🫘 Riñón izquierdo", "zone-riñon-izq", "Filtra la sangre y participa en la formación de la orina."],
+            ["riñon_derecho", "🫘 Riñón derecho", "zone-riñon-der", "Filtra la sangre y participa en la formación de la orina."],
+            ["ureter_izquierdo", "〰️ Uréter izquierdo", "zone-ureter-izq", "Transporta la orina desde el riñón hasta la vejiga."],
+            ["ureter_derecho", "〰️ Uréter derecho", "zone-ureter-der", "Transporta la orina desde el riñón hasta la vejiga."],
+            ["vejiga", "🫧 Vejiga urinaria", "zone-vejiga", "Almacena temporalmente la orina."],
+            ["uretra", "🔽 Uretra", "zone-uretra", "Conducto por donde la orina sale del organismo."]
+        ]
     }
 
 };
@@ -85,7 +98,6 @@ function crearJuego() {
     const organosVisuales =
         document.getElementById("organosVisuales");
 
-
     palabras.innerHTML = "";
     zonas.innerHTML = "";
 
@@ -98,9 +110,9 @@ function crearJuego() {
     }
 
 
-    /* =========================
-       PALABRAS
-    ========================= */
+    // =========================
+    // PALABRAS
+    // =========================
 
     sistemas[sistemaActual].organos.forEach(function(organo) {
 
@@ -134,9 +146,9 @@ function crearJuego() {
     });
 
 
-    /* =========================
-       RECUADROS
-    ========================= */
+    // =========================
+    // RECUADROS + PISTAS
+    // =========================
 
     sistemas[sistemaActual].organos.forEach(function(organo, index) {
 
@@ -195,9 +207,9 @@ function crearJuego() {
         zonas.appendChild(zona);
 
 
-        /* =========================
-           PISTA
-        ========================= */
+        // =========================
+        // PISTA
+        // =========================
 
         if (pistas) {
 
@@ -217,7 +229,6 @@ function crearJuego() {
 
 
     mostrarOrganos();
-
 }
 
 
@@ -313,6 +324,34 @@ function mostrarOrganos() {
         contenedor.innerHTML = `
             <div class="estomago">🥣</div>
             <div class="intestinos">〰️〰️</div>
+        `;
+
+    }
+
+
+    else if (sistemaActual === "urinario") {
+
+        contenedor.innerHTML = `
+            <div style="
+                position:absolute;
+                top:205px;
+                left:75px;
+                font-size:35px;
+            ">🫘</div>
+
+            <div style="
+                position:absolute;
+                top:205px;
+                left:170px;
+                font-size:35px;
+            ">🫘</div>
+
+            <div style="
+                position:absolute;
+                top:320px;
+                left:120px;
+                font-size:38px;
+            ">🫧</div>
         `;
 
     }
