@@ -1,0 +1,190 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Juego | BioVida</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+    <div class="logo">
+        🧬 BioVida
+    </div>
+
+    <div class="nav-links">
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+        <a href="{{ url_for('respiratorio') }}">Respiratorio</a>
+        <a href="{{ url_for('circulatorio') }}">Circulatorio</a>
+        <a href="{{ url_for('digestivo') }}">Digestivo</a>
+        <a href="{{ url_for('quiz') }}">Quiz</a>
+        <a href="{{ url_for('juego') }}">🎮 Juego</a>
+    </div>
+
+</nav>
+
+
+<header class="game-header">
+
+    <p class="mini-title">
+        🎮 APRENDE JUGANDO
+    </p>
+
+    <h1 id="tituloSistema">
+        🫁 Sistema respiratorio
+    </h1>
+
+    <p>
+        Coloca cada órgano en el lugar correcto del cuerpo.
+    </p>
+
+</header>
+
+
+<!-- BOTONES DE SISTEMAS -->
+
+<section class="system-buttons">
+
+    <button onclick="cambiarSistema('respiratorio')">
+        🫁 Respiratorio
+    </button>
+
+    <button onclick="cambiarSistema('circulatorio')">
+        ❤️ Circulatorio
+    </button>
+
+    <button onclick="cambiarSistema('digestivo')">
+        🍽️ Digestivo
+    </button>
+
+    <button onclick="cambiarSistema('urinario')">
+        🫘 Urinario
+    </button>
+
+</section>
+
+
+<!-- INFORMACIÓN DEL JUEGO -->
+
+<section class="game-info">
+
+    <div class="score-box">
+        🏆 Puntos:
+        <strong id="score">0</strong>
+    </div>
+
+    <div id="message" class="game-message">
+        Arrastra cada órgano hasta su lugar.
+    </div>
+
+    <button class="restart-button"
+            onclick="reiniciarJuego()">
+        🔄 Reiniciar
+    </button>
+
+</section>
+
+
+<main class="game-container">
+
+
+    <!-- PALABRAS -->
+
+    <section class="words-panel">
+
+        <h2>🧩 Órganos</h2>
+
+        <p>
+            Arrastra o haz clic en un órgano.
+        </p>
+
+        <div id="palabras"></div>
+
+    </section>
+
+
+    <!-- CUERPO -->
+
+    <section class="body-panel">
+
+        <h2>🧍 Coloca los órganos</h2>
+
+        <div class="body-area">
+
+            <div class="body-head">
+                🧑
+            </div>
+
+            <div class="body-neck"></div>
+
+            <div class="body-torso">
+
+                <div class="body-arm left"></div>
+                <div class="body-arm right"></div>
+
+                <div class="body-chest"></div>
+
+                <div id="organosVisuales"></div>
+
+                <!-- ZONAS -->
+
+                <div id="zonas"></div>
+
+            </div>
+
+            <div class="body-legs">
+
+                <div class="leg left"></div>
+                <div class="leg right"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PISTAS -->
+
+    <aside class="clues-panel">
+
+        <div id="pistas">
+
+            <h3>💡 Pistas</h3>
+
+        </div>
+
+    </aside>
+
+</main>
+
+
+<footer>
+
+    <h3>🧬 BioVida</h3>
+
+    <p>
+        Aprende • Explora • Descubre
+    </p>
+
+    <small>
+        Autor: Fernández Villogas Joan Jheferson
+    </small>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='juego.js') }}"></script>
+
+</body>
+
+</html>
+```

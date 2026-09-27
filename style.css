@@ -1,0 +1,754 @@
+```css
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f7fbf9;
+    color: #222;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+    background: white;
+    padding: 18px 7%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    color: #16834b;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #444;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.nav-links a:hover {
+    color: #16834b;
+}
+
+
+/* =========================
+   ENCABEZADO DEL JUEGO
+========================= */
+
+.game-header {
+    text-align: center;
+    padding: 60px 20px 35px;
+    background: linear-gradient(135deg,#e9fff3,#ffffff);
+}
+
+.game-header .mini-title {
+    color: #16834b;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.game-header h1 {
+    color: #126d40;
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.game-header p:last-child {
+    color: #666;
+}
+
+
+/* =========================
+   BOTONES DE SISTEMAS
+========================= */
+
+.system-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 25px 20px;
+    background: white;
+}
+
+.system-buttons button {
+    border: none;
+    padding: 13px 20px;
+    border-radius: 12px;
+    background: #16834b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.system-buttons button:hover {
+    transform: translateY(-3px);
+    background: #106a3c;
+}
+
+
+/* =========================
+   INFORMACIÓN
+========================= */
+
+.game-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.score-box {
+    background: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+
+.game-message {
+    background: #e8f7ef;
+    color: #126d40;
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.restart-button {
+    border: none;
+    background: #555;
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.restart-button:hover {
+    background: #333;
+}
+
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+========================= */
+
+.game-container {
+    max-width: 1400px;
+    margin: 20px auto 60px;
+    padding: 20px;
+
+    display: grid;
+    grid-template-columns: 250px 1fr 300px;
+    gap: 25px;
+}
+
+
+/* =========================
+   PANELES
+========================= */
+
+.words-panel,
+.body-panel,
+.clues-panel {
+    background: white;
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(0,0,0,.08);
+}
+
+.words-panel h2,
+.body-panel h2,
+.clues-panel h3 {
+    color: #16834b;
+    margin-bottom: 8px;
+}
+
+.words-panel p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+
+/* =========================
+   PALABRAS
+========================= */
+
+#palabras {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.word {
+    background: #f1faf5;
+    border: 2px solid #b9dfca;
+    padding: 10px 12px;
+    border-radius: 10px;
+    cursor: grab;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.word:hover {
+    transform: translateX(4px);
+    background: #e1f5ea;
+}
+
+.word.selected {
+    background: #b9efd0;
+    border-color: #16834b;
+}
+
+.word:active {
+    cursor: grabbing;
+}
+
+
+/* =========================
+   CUERPO
+========================= */
+
+.body-panel {
+    text-align: center;
+}
+
+.body-area {
+    position: relative;
+    width: 430px;
+    height: 650px;
+    margin: 20px auto;
+}
+
+
+/* CABEZA */
+
+.body-head {
+    position: absolute;
+    top: 5px;
+    left: 175px;
+    width: 80px;
+    height: 80px;
+
+    font-size: 70px;
+    line-height: 80px;
+    text-align: center;
+
+    z-index: 2;
+}
+
+
+/* CUELLO */
+
+.body-neck {
+    position: absolute;
+    top: 75px;
+    left: 195px;
+    width: 40px;
+    height: 45px;
+    background: #f2c6a0;
+    border-radius: 10px;
+}
+
+
+/* TORSO */
+
+.body-torso {
+    position: absolute;
+    top: 105px;
+    left: 105px;
+    width: 220px;
+    height: 330px;
+
+    background: #dcefe5;
+
+    border: 3px solid #16834b;
+    border-radius: 90px 90px 55px 55px;
+
+    overflow: visible;
+}
+
+
+/* BRAZOS */
+
+.body-arm {
+    position: absolute;
+    top: 15px;
+    width: 55px;
+    height: 285px;
+
+    background: #dcefe5;
+    border: 3px solid #16834b;
+
+    border-radius: 35px;
+}
+
+.body-arm.left {
+    left: -65px;
+    transform: rotate(5deg);
+}
+
+.body-arm.right {
+    right: -65px;
+    transform: rotate(-5deg);
+}
+
+
+/* PECHO */
+
+.body-chest {
+    position: absolute;
+    top: 25px;
+    left: 35px;
+    width: 150px;
+    height: 130px;
+
+    border-radius: 50%;
+    border: 2px dashed #7ab892;
+}
+
+
+/* PIERNAS */
+
+.body-legs {
+    position: absolute;
+    top: 420px;
+    left: 130px;
+    width: 170px;
+    height: 210px;
+}
+
+.leg {
+    position: absolute;
+    width: 65px;
+    height: 210px;
+
+    background: #dcefe5;
+    border: 3px solid #16834b;
+
+    border-radius: 30px;
+}
+
+.leg.left {
+    left: 0;
+}
+
+.leg.right {
+    right: 0;
+}
+
+
+/* =========================
+   ZONAS DE ÓRGANOS
+========================= */
+
+#zonas {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+}
+
+.drop-zone {
+    position: absolute;
+
+    width: 58px;
+    height: 42px;
+
+    background: rgba(255,255,255,.85);
+
+    border: 2px dashed #16834b;
+    border-radius: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: .2s;
+
+    z-index: 30;
+}
+
+.drop-zone.drag-over {
+    background: #c8f3da;
+    transform: scale(1.08);
+}
+
+.zone-number {
+    width: 26px;
+    height: 26px;
+
+    background: #16834b;
+    color: white;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+/* =========================
+   POSICIONES RESPIRATORIAS
+========================= */
+
+.zone-cabeza {
+    top: -45px;
+    left: 80px;
+}
+
+.zone-faringe {
+    top: 0;
+    left: 80px;
+}
+
+.zone-laringe {
+    top: 35px;
+    left: 80px;
+}
+
+.zone-traquea {
+    top: 75px;
+    left: 80px;
+}
+
+.zone-bronquios {
+    top: 115px;
+    left: 80px;
+}
+
+.zone-pecho-izq {
+    top: 100px;
+    left: 20px;
+}
+
+.zone-pecho-der {
+    top: 100px;
+    right: 20px;
+}
+
+.zone-alveolos {
+    top: 155px;
+    left: 80px;
+}
+
+.zone-diafragma {
+    top: 195px;
+    left: 80px;
+}
+
+
+/* =========================
+   CIRCULATORIO
+========================= */
+
+.zone-corazon {
+    top: 95px;
+    left: 80px;
+}
+
+.zone-aorta {
+    top: 45px;
+    left: 80px;
+}
+
+.zone-arterias {
+    top: 145px;
+    left: 10px;
+}
+
+.zone-venas {
+    top: 145px;
+    right: 10px;
+}
+
+.zone-vena-cava {
+    top: 200px;
+    right: 10px;
+}
+
+.zone-capilares {
+    top: 220px;
+    left: 80px;
+}
+
+.zone-sangre {
+    top: 260px;
+    left: 20px;
+}
+
+.zone-globulos-rojos {
+    top: 260px;
+    right: 20px;
+}
+
+.zone-globulos-blancos {
+    top: 305px;
+    left: 20px;
+}
+
+.zone-plaquetas {
+    top: 305px;
+    right: 20px;
+}
+
+
+/* =========================
+   DIGESTIVO
+========================= */
+
+.zone-esofago {
+    top: 45px;
+    left: 80px;
+}
+
+.zone-estomago {
+    top: 110px;
+    left: 80px;
+}
+
+.zone-higado {
+    top: 105px;
+    left: 15px;
+}
+
+.zone-vesicula {
+    top: 150px;
+    left: 15px;
+}
+
+.zone-pancreas {
+    top: 155px;
+    right: 15px;
+}
+
+.zone-intestino-delgado {
+    top: 205px;
+    left: 80px;
+}
+
+.zone-intestino-grueso {
+    top: 250px;
+    left: 80px;
+}
+
+.zone-recto {
+    top: 300px;
+    left: 80px;
+}
+
+.zone-ano {
+    top: 335px;
+    left: 80px;
+}
+
+
+/* =========================
+   URINARIO
+========================= */
+
+.zone-riñon-izq {
+    top: 170px;
+    left: 20px;
+}
+
+.zone-riñon-der {
+    top: 170px;
+    right: 20px;
+}
+
+.zone-ureter-izq {
+    top: 220px;
+    left: 20px;
+}
+
+.zone-ureter-der {
+    top: 220px;
+    right: 20px;
+}
+
+.zone-vejiga {
+    top: 275px;
+    left: 80px;
+}
+
+.zone-uretra {
+    top: 325px;
+    left: 80px;
+}
+
+
+/* =========================
+   PISTAS
+========================= */
+
+#pistas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pista {
+    background: #fffbea;
+    border-left: 4px solid #e6b800;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.pista strong {
+    color: #9a7600;
+}
+
+
+/* =========================
+   ÓRGANOS VISUALES
+========================= */
+
+#organosVisuales {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.pulmon {
+    position: absolute;
+    font-size: 60px;
+    top: 70px;
+}
+
+.pulmon-izq {
+    left: 30px;
+}
+
+.pulmon-der {
+    right: 30px;
+}
+
+.corazon {
+    position: absolute;
+    top: 80px;
+    left: 75px;
+    font-size: 65px;
+}
+
+.estomago {
+    position: absolute;
+    top: 110px;
+    left: 75px;
+    font-size: 55px;
+}
+
+.intestinos {
+    position: absolute;
+    top: 190px;
+    left: 60px;
+    font-size: 50px;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+footer {
+    background: #123d2b;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: 50px;
+}
+
+footer p {
+    margin: 5px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .game-container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .clues-panel {
+        grid-column: 1 / -1;
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .game-container {
+        grid-template-columns: 1fr;
+    }
+
+    .body-area {
+        transform: scale(.85);
+        transform-origin: top center;
+        margin-bottom: -80px;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .body-area {
+        transform: scale(.68);
+        transform-origin: top center;
+        margin-bottom: -170px;
+    }
+
+    .game-header h1 {
+        font-size: 30px;
+    }
+
+    .system-buttons button {
+        width: 100%;
+    }
+
+}
+```

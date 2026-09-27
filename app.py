@@ -24,7 +24,13 @@ def circulatorio():
 # SISTEMA DIGESTIVO
 @app.route("/digestivo")
 def digestivo():
+    @app.route("/urinario")
+    def urinario():
+        return render_template("urinario.html")
     return render_template("digestivo.html")
+@app.route("/urinario")
+def urinario():
+    return render_template("urinario.html")
 
 
 # QUIZ
